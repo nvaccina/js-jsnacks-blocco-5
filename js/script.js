@@ -192,43 +192,46 @@ Stampare in console la bici con peso minore utilizzando destructuring e template
 
 const parcoBici = [
   {
-    nome: 'City bike',
+    nome: 'city bike',
     peso: 15,
   },
   {
-    nome: 'Mountain bike',
+    nome: 'mountain bike',
     peso: 20,
   },
   {
-    nome: 'Bici da corsa',
+    nome: 'bici da corsa',
     peso: 8,
   },
   {
-    nome: 'Tandem',
+    nome: 'tandem',
     peso: 25,
   },
   {
-    nome: 'Bmx',
+    nome: 'bmx',
     peso: 13,
   }
 ]
-//parcoBici.forEach((bicicletta) =>{
 
+let biciLeggera = parcoBici[0];
   
-
-  const biciMenoPesante = parcoBici.filter (bicicletta => {
-    
-    const {nome, peso} = bicicletta;
-    console.log('Carratteritiche',nome, peso);
-
-    const PesoMinimo = Math.min(peso)
-    return PesoMinimo
-  })
-
-  console.log(biciMenoPesante);
-
+for (let i = 0; i < parcoBici.length; i++) {
+  const biciAttuale = parcoBici[i];
   
-//})
+  if (biciAttuale.peso < biciLeggera.peso) {
+    biciLeggera = biciAttuale;
+  }
+}
+          
+const biciMenoPesante = parcoBici.filter(({peso}, index, array) => {
+  if(peso === biciLeggera.peso) {
+    return true;
+  }
+})
+
+biciMenoPesante.forEach((bici) => {
+  console.log(`La ${bici.nome} è la bici più leggera e pesa ${bici.peso} kg.`)
+});
 
 
 /*
