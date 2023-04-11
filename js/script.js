@@ -177,14 +177,14 @@ const nomeStudenti = studentiFacolta.map (studente => {
 console.log(nomeStudenti);
 
 const studentiVotiMaggiori70 = studentiFacolta.filter( (studente) => studente.grade > 70);
-console.log(studentiVotiMaggiori70);
+console.log('Studenti con voti maggiori di 70', studentiVotiMaggiori70);
 
 const studentiVoti70Id120 = studentiVotiMaggiori70.filter( (studente) => studente.id >= 120);
-console.log(studentiVoti70Id120);
+console.log('Studenti con voti maggiori di 70 e id maggiore di 120', studentiVoti70Id120);
 
 
 /*
-SNACK 5*
+SNACK 5
 Creare un array di oggetti:
 Ogni oggetto descriverà una bici da corsa con le seguenti proprietà : nome e peso.
 Stampare in console la bici con peso minore utilizzando destructuring e template literal
@@ -212,27 +212,15 @@ const parcoBici = [
     peso: 13,
   }
 ]
-
 let biciLeggera = parcoBici[0];
-  
-for (let i = 0; i < parcoBici.length; i++) {
-  const biciAttuale = parcoBici[i];
-  
-  if (biciAttuale.peso < biciLeggera.peso) {
-    biciLeggera = biciAttuale;
-  }
-}
-          
-const biciMenoPesante = parcoBici.filter(({peso}, index, array) => {
-  if(peso === biciLeggera.peso) {
-    return true;
-  }
-})
 
-biciMenoPesante.forEach((bici) => {
-  console.log(`La ${bici.nome} è la bici più leggera e pesa ${bici.peso} kg.`)
+parcoBici.forEach((bici) => {
+  if(bici.peso < biciLeggera.peso) biciLeggera = bici;
 });
 
+const {nome, peso} = biciLeggera;
+
+console.log(`La ${nome} è la bici più leggera, e pesa ${peso}kg.`);
 
 /*
 *SNACK 6*
@@ -275,19 +263,20 @@ const squadre = [
 
 const newSquadre = squadre.map(squadra => {
   const {nome} = squadra;
-  squadra.puntiFatti = getRandomNumber(1, 40);
-  squadra.falliSubiti = getRandomNumber(1, 50);
+  squadra.puntiFatti = getRandomNumber(1, 100);
+  squadra.falliSubiti = getRandomNumber(1, 40);
 
-  return {nome: nome, puntiFatti: squadra.falliSubiti, falliSubiti: squadra.falliSubiti};
+  return {nome: nome, puntiFatti: squadra.puntiFatti, falliSubiti: squadra.falliSubiti};
 })
 console.log(newSquadre);
 
-const soloSquadreEPunti = newSquadre.map(squadra =>{
+const soloSquadreEFalli = newSquadre.map(squadra =>{
 
-  const{nome, puntiFatti} = squadra;
-  return `${nome}, Punti fatti:${puntiFatti}` ;
+  const{nome, falliSubiti} = squadra;
+  return `${nome}, falli subiti:${falliSubiti}` ;
 })
-console.log(soloSquadreEPunti);
+console.log(soloSquadreEFalli);
+
 function getRandomNumber(min, max){
   return Math.floor(Math.random() * (max - min) ) + min;
 }
